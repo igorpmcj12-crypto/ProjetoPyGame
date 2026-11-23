@@ -1,26 +1,20 @@
-from setuptools import setup
+from cx_Freeze import setup, Executable
 
-# Para gerar a build/executavel conforme o ambiente da disciplina:
-# python setup.py build
+# O comando solicitado na atividade e: python setup.py build
+opcoes = {
+    "build_exe": {
+        "packages": ["pygame", "pyttsx3", "Recursos"],
+        "include_files": [
+            ("bases", "bases"),
+            ("log.dat", "log.dat"),
+        ],
+    }
+}
 
-try:
-    from cx_Freeze import setup, Executable
-    setup(
-        name="OmnitrixRun",
-        version="1.0",
-        description="Jogo Pygame - Pensamento Computacional",
-        options={
-            "build_exe": {
-                "packages": ["pygame", "pyttsx3", "Recursos"],
-                "include_files": ["bases", "Recursos", "main.py"]
-            }
-        },
-        executables=[Executable("main.py")]
-    )
-except ImportError:
-    setup(
-        name="OmnitrixRun",
-        version="1.0",
-        py_modules=["main"],
-        description="Jogo Pygame - Pensamento Computacional"
-    )
+setup(
+    name="OmnitrixRun",
+    version="7.0",
+    description="Jogo Pygame - Omnitrix Run V7",
+    options=opcoes,
+    executables=[Executable("main.py", target_name="OmnitrixRun.exe")],
+)

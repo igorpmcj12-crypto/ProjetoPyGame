@@ -1,14 +1,26 @@
-ANIMACOES DO OMNITRIX RUN - V2
+ANIMACOES - OMNITRIX RUN V7
 
-As pastas contem PNGs com fundo transparente e tamanho uniforme de 160 x 150 pixels.
+Todos os PNGs ficam nesta pasta bases/imagens/animacoes/ e sao carregados pelo main.py.
 
-caminhar: 6 frames
-correr: 6 frames
-atacar: 4 frames
-pular: 4 frames
-rolar: 6 frames
-morrer: 6 frames
-transformar: 8 frames
+Heroi:
+- caminhar: 6 quadros
+- correr: 6 quadros
+- atacar: 4 quadros
+- pular: 4 quadros
+- agachar: 4 quadros com fundo transparente
+- rolar: 6 quadros
+- morrer: 6 quadros
+- transformar: 8 quadros de energia verde do Omnitrix
 
-No main.py, caminhada e corrida sao usadas durante a movimentacao. Z dispara e toca a animacao de ataque.
-Os outros movimentos estao separados e prontos para as proximas etapas.
+Chamas:
+- chamas_parado: 4 quadros de respiracao/repouso
+- chamas_correndo: 6 quadros de corrida
+
+Bola de Canhao:
+- bola_parado: 4 quadros do mesmo modelo visual, usados em repouso e movimento para evitar troca de aparencia
+- bola_rolando: 8 quadros de rolamento
+
+Inimigos:
+- Os ratinhos e os morcegos possuem suas sequencias em bases/imagens/inimigos/.
+
+V8: as animacoes da Bola de Canhao foram padronizadas a partir do mesmo modelo pixel-art. Pastas bola_parado, bola_caminhar, bola_correr, bola_pular, bola_agachar e bola_atacar. Chamas agora usa quadros com altura visivel normalizada.

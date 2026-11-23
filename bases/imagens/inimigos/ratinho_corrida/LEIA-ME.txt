@@ -1,0 +1,1 @@
+Frames de corrida do ratinho. Sao seis imagens PNG com transparencia, usadas em sequencia para animar os inimigos.

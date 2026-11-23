@@ -1,0 +1,9 @@
+GERAR EXECUTAVEL - OMNITRIX RUN V7
+
+O comando solicitado no PDF e:
+python setup.py build
+
+Antes, instale o cx_Freeze:
+py -m pip install -r requirements-build.txt
+
+Execute o comando acima dentro da pasta do projeto. O cx_Freeze cria a pasta build/ com o executavel e os arquivos necessarios.

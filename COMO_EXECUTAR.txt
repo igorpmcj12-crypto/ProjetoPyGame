@@ -1,0 +1,12 @@
+OMNITRIX RUN - V7
+
+1. Extraia o ZIP.
+2. Abra o CMD dentro da pasta que contem main.py e requirements.txt.
+3. Instale: py -m pip install -r requirements.txt
+4. Execute: py main.py
+
+Para gerar o executavel pedido na atividade:
+1. py -m pip install -r requirements-build.txt
+2. python setup.py build
+
+Os arquivos de audio e imagem ficam dentro de bases/.

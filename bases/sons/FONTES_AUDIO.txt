@@ -1,0 +1,30 @@
+OMNITRIX RUN - FONTES E LICENCAS DE AUDIO
+
+ARQUIVOS INCLUIDOS NESTA VERSAO
+Os arquivos WAV deste pacote foram compostos/sintetizados especificamente para Omnitrix Run durante a montagem desta versao. Nao foram copiados dos recursos externos listados abaixo.
+
+- musica_fundo.wav: trilha original estilo aventura/arcade com tema de selva, feita para repetir em loop.
+- transformacao.wav: efeito original de energia crescente e engrenagens digitais.
+- tiro.wav: efeito original do disparo de fogo.
+- soco.wav: efeito original de golpe.
+- impacto.wav: efeito original de colisao.
+- ponto.wav: efeito original de pontuacao.
+- morte.wav: efeito original de fim de vida.
+- pulo.wav: efeito original de salto.
+- rolagem.wav: efeito original da forma Bola de Canhao.
+- menu.wav: efeito original da interface.
+
+REFERENCIAS EXTERNAS PESQUISADAS
+As paginas abaixo foram consultadas como referencias de audio gratuito. Os ficheiros externos nao estao incluidos neste ZIP; a conexao de download do ambiente de montagem nao conseguiu acessar os binarios. Foram criados sons originais para que o jogo ja funcione sem depender de download adicional.
+
+1. Joyful Jungle - MintoDog, OpenGameArt.
+   Pagina: https://opengameart.org/content/joyful-jungle
+   A pagina indica licenca CC0 e descreve a trilha como musica de tema de selva, alegre e preparada para loop.
+
+2. Robotic Transformations - Mekaal, OpenGameArt.
+   Pagina: https://opengameart.org/content/robotic-transformations
+   A pagina lista uma opcao de licenca CC0 para os efeitos de transformacao robotica.
+
+3. Power-Up Sound Effects - Spring Spring, OpenGameArt.
+   Pagina: https://opengameart.org/content/power-up-sound-effects
+   A pagina indica CC0 para tres variacoes de efeitos de power-up.
