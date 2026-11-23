@@ -1,9 +1,9 @@
 # Omnitrix Run
 
 ## Desenvolvedores
-- Nome completo: PREENCHER
-- RA: PREENCHER
-- Nome completo: PREENCHER
+- Nome Igor Pereira
+- RA: 1139603
+- Nome completo: Camila Bueno
 - RA: PREENCHER
 
 ## História
