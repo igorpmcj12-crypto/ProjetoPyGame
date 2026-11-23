@@ -30,11 +30,29 @@ def carregar_imagem(nome):
     return pygame.image.load(os.path.join(BASE, "imagens", nome)).convert_alpha()
 
 FUNDO = pygame.image.load(os.path.join(BASE, "imagens", "fundo.png")).convert()
-JOGADOR_IMG = carregar_imagem("jogador.png")
+def carregar_animacao(nome, quantidade):
+    imagens = []
+    for numero in range(1, quantidade + 1):
+        caminho = os.path.join(BASE, "imagens", "animacoes", nome,
+                               nome + "_" + str(numero).zfill(2) + ".png")
+        imagens.append(pygame.image.load(caminho).convert_alpha())
+    return imagens
+
+# Frames separados da spritesheet. Cada movimento fica em uma lista simples.
+ANIMACAO_CAMINHAR = carregar_animacao("caminhar", 6)
+ANIMACAO_CORRER = carregar_animacao("correr", 6)
+ANIMACAO_ATACAR = carregar_animacao("atacar", 4)
+ANIMACAO_PULAR = carregar_animacao("pular", 4)
+ANIMACAO_ROLAR = carregar_animacao("rolar", 6)
+ANIMACAO_MORRER = carregar_animacao("morrer", 6)
+ANIMACAO_TRANSFORMAR = carregar_animacao("transformar", 8)
+
+JOGADOR_IMG = ANIMACAO_CAMINHAR[0]
 INIMIGO_IMG = carregar_imagem("inimigo.png")
 PROJETIL_IMG = carregar_imagem("projetil.png")
 OMNITRIX_IMG = carregar_imagem("icone_omnitrix.png")
 DECORACAO_IMG = carregar_imagem("decoracao.png")
+CAPA_IMG = carregar_imagem("capa.png")
 
 SOM_TIRO = pygame.mixer.Sound(os.path.join(BASE, "sons", "tiro.wav"))
 SOM_PONTO = pygame.mixer.Sound(os.path.join(BASE, "sons", "ponto.wav"))
@@ -104,6 +122,10 @@ def tela_nome():
     nome = ""
     digitando = True
 
+    # A imagem enviada para a capa fica na primeira tela do jogo.
+    capa = pygame.transform.smoothscale(CAPA_IMG, (310, 578))
+    moldura_capa = pygame.Rect(625, 45, 340, 610)
+
     while digitando:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -121,15 +143,28 @@ def tela_nome():
                     nome += evento.unicode
 
         TELA.blit(FUNDO, (0, 0))
-        texto("OMNITRIX RUN", FONTE_TITULO, VERDE_CLARO, LARGURA//2, 170, True)
-        texto("Digite seu nome:", FONTE_MEDIA, BRANCO, LARGURA//2, 290, True)
 
-        pygame.draw.rect(TELA, (20, 45, 30), (300, 335, 400, 60), border_radius=10)
-        pygame.draw.rect(TELA, VERDE, (300, 335, 400, 60), 2, border_radius=10)
-        texto(nome + "_", FONTE_MEDIA, BRANCO, 320, 347)
+        # Painel do menu inicial.
+        pygame.draw.rect(TELA, (8, 24, 17), (45, 55, 545, 600), border_radius=22)
+        pygame.draw.rect(TELA, VERDE, (45, 55, 545, 600), 3, border_radius=22)
 
-        texto("ENTER para continuar", FONTE_PEQUENA, VERDE_CLARO, LARGURA//2, 450, True)
-        texto("ESC para fechar", FONTE_PEQUENA, BRANCO, LARGURA//2, 490, True)
+        icone_menu = pygame.transform.smoothscale(OMNITRIX_IMG, (76, 76))
+        TELA.blit(icone_menu, (279, 92))
+        texto("OMNITRIX RUN", FONTE_GRANDE, VERDE_CLARO, 317, 215, True)
+        texto("A aventura começa aqui", FONTE_PEQUENA, BRANCO, 317, 270, True)
+
+        texto("Digite seu nome:", FONTE_MEDIA, BRANCO, 317, 360, True)
+        pygame.draw.rect(TELA, (20, 45, 30), (105, 405, 425, 62), border_radius=10)
+        pygame.draw.rect(TELA, VERDE, (105, 405, 425, 62), 2, border_radius=10)
+        texto(nome + "_", FONTE_MEDIA, BRANCO, 125, 419)
+
+        texto("ENTER para continuar", FONTE_PEQUENA, VERDE_CLARO, 317, 520, True)
+        texto("ESC para fechar", FONTE_PEQUENA, BRANCO, 317, 558, True)
+
+        # Moldura clara para integrar a arte, que possui fundo branco.
+        pygame.draw.rect(TELA, (235, 245, 235), moldura_capa, border_radius=18)
+        pygame.draw.rect(TELA, VERDE, moldura_capa, 4, border_radius=18)
+        TELA.blit(capa, (640, 61))
 
         pygame.display.flip()
         clock.tick(60)
@@ -157,8 +192,8 @@ def tela_boas_vindas(nome):
         texto(nome, FONTE_GRANDE, BRANCO, LARGURA//2, 170, True)
 
         texto("Mecânica:", FONTE_MEDIA, VERDE, 180, 250)
-        texto("Mova o personagem apenas para os lados.", FONTE_PEQUENA, BRANCO, 180, 295)
-        texto("Use Z para disparar e destruir inimigos.", FONTE_PEQUENA, BRANCO, 180, 325)
+        texto("Use A/D ou as setas para mover no eixo X.", FONTE_PEQUENA, BRANCO, 180, 295)
+        texto("Segure SHIFT para correr e aperte Z para atacar.", FONTE_PEQUENA, BRANCO, 180, 325)
         texto("Evite os inimigos e faça a maior pontuação.", FONTE_PEQUENA, BRANCO, 180, 355)
 
         pygame.draw.rect(TELA, VERDE, botao, border_radius=12)
@@ -177,14 +212,23 @@ def desenhar_sol(t):
     pygame.draw.circle(TELA, AMARELO, (LARGURA - 55, 55), raio)
 
 def jogar(nome):
-    jogador = pygame.Rect(120, 500, 70, 90)
-    velocidade = 7
+    jogador = pygame.Rect(120, 435, 75, 125)
+    velocidade = 6
     inimigos = []
     projeteis = []
     pontos = 0
     tempo_inimigo = 0
     pausa = False
     acabou = False
+
+    # Controle simples dos frames das animacoes.
+    frame_atual = 0
+    tempo_animacao = 0
+    nome_animacao = "parado"
+    ataque_ativo = False
+    tempo_ataque = 0
+    frame_ataque = 0
+    olhando_esquerda = False
 
     decor_x = 700
     decor_y = 180
@@ -210,19 +254,75 @@ def jogar(nome):
 
                 if not pausa and evento.key == pygame.K_z:
                     tiro = PROJETIL_IMG.get_rect()
-                    tiro.x = jogador.right
+                    direcao_tiro = 12
+                    if olhando_esquerda:
+                        tiro.right = jogador.left
+                        direcao_tiro = -12
+                    else:
+                        tiro.left = jogador.right
                     tiro.centery = jogador.centery
-                    projeteis.append(tiro)
+                    projeteis.append([tiro, direcao_tiro])
                     SOM_TIRO.play()
+                    ataque_ativo = True
+                    tempo_ataque = 0
+                    frame_ataque = 0
 
         if not pausa:
             teclas = pygame.key.get_pressed()
 
             # O jogador se move SOMENTE no eixo X.
+            andando = False
+            correndo = False
+            velocidade = 6
+
+            if teclas[pygame.K_LSHIFT] or teclas[pygame.K_RSHIFT]:
+                correndo = True
+                velocidade = 10
+
             if teclas[pygame.K_LEFT] or teclas[pygame.K_a]:
+                andando = True
                 jogador.x -= velocidade
+                olhando_esquerda = True
             if teclas[pygame.K_RIGHT] or teclas[pygame.K_d]:
+                andando = True
                 jogador.x += velocidade
+                olhando_esquerda = False
+
+            if andando:
+                if correndo:
+                    if nome_animacao != "correr":
+                        nome_animacao = "correr"
+                        frame_atual = 0
+                        tempo_animacao = 0
+                    animacao_movimento = ANIMACAO_CORRER
+                    velocidade_frame = 85
+                else:
+                    if nome_animacao != "caminhar":
+                        nome_animacao = "caminhar"
+                        frame_atual = 0
+                        tempo_animacao = 0
+                    animacao_movimento = ANIMACAO_CAMINHAR
+                    velocidade_frame = 140
+
+                tempo_animacao += dt
+                if tempo_animacao >= velocidade_frame:
+                    frame_atual += 1
+                    if frame_atual >= len(animacao_movimento):
+                        frame_atual = 0
+                    tempo_animacao = 0
+            else:
+                nome_animacao = "parado"
+                frame_atual = 0
+                tempo_animacao = 0
+
+            if ataque_ativo:
+                tempo_ataque += dt
+                if tempo_ataque >= 90:
+                    frame_ataque += 1
+                    tempo_ataque = 0
+                    if frame_ataque >= len(ANIMACAO_ATACAR):
+                        ataque_ativo = False
+                        frame_ataque = 0
 
             if jogador.left < 0:
                 jogador.left = 0
@@ -238,10 +338,11 @@ def jogar(nome):
                 inimigos.append(criar_inimigo(LARGURA, ALTURA))
                 tempo_inimigo = 0
 
-            for tiro in projeteis[:]:
-                tiro.x += 12
-                if tiro.left > LARGURA:
-                    projeteis.remove(tiro)
+            for projetil in projeteis[:]:
+                tiro = projetil[0]
+                tiro.x += projetil[1]
+                if tiro.right < 0 or tiro.left > LARGURA:
+                    projeteis.remove(projetil)
 
             for inimigo in inimigos[:]:
                 inimigo[0] -= inimigo[2]
@@ -255,10 +356,11 @@ def jogar(nome):
                     SOM_MORTE.play()
                     acabou = True
 
-                for tiro in projeteis[:]:
+                for projetil in projeteis[:]:
+                    tiro = projetil[0]
                     if tiro.colliderect(inimigo_rect):
-                        if tiro in projeteis:
-                            projeteis.remove(tiro)
+                        if projetil in projeteis:
+                            projeteis.remove(projetil)
                         if inimigo in inimigos:
                             inimigos.remove(inimigo)
                         pontos += 10
@@ -269,17 +371,33 @@ def jogar(nome):
         desenhar_sol(tempo)
 
         TELA.blit(DECORACAO_IMG, (int(decor_x), int(decor_y)))
-        TELA.blit(JOGADOR_IMG, jogador)
 
-        for tiro in projeteis:
-            TELA.blit(PROJETIL_IMG, tiro)
+        # Escolhe qual lista de frames desenhar neste momento.
+        if ataque_ativo:
+            imagem_jogador = ANIMACAO_ATACAR[frame_ataque]
+        elif nome_animacao == "correr":
+            imagem_jogador = ANIMACAO_CORRER[frame_atual]
+        elif nome_animacao == "caminhar":
+            imagem_jogador = ANIMACAO_CAMINHAR[frame_atual]
+        else:
+            imagem_jogador = ANIMACAO_CAMINHAR[0]
+
+        if olhando_esquerda:
+            imagem_jogador = pygame.transform.flip(imagem_jogador, True, False)
+
+        # Mantem os frames alinhados pelo centro e pelos pes.
+        TELA.blit(imagem_jogador, (jogador.centerx - 80, jogador.bottom - 150))
+
+        for projetil in projeteis:
+            TELA.blit(PROJETIL_IMG, projetil[0])
 
         for inimigo in inimigos:
             TELA.blit(INIMIGO_IMG, (int(inimigo[0]), int(inimigo[1])))
 
         TELA.blit(OMNITRIX_IMG, (20, 20))
         texto("Pontos: " + str(pontos), FONTE_MEDIA, BRANCO, 95, 30)
-        texto("Z = atacar", FONTE_PEQUENA, VERDE_CLARO, 20, 615)
+        texto("A/D ou setas: mover | SHIFT: correr | Z: atacar",
+              FONTE_PEQUENA, VERDE_CLARO, 20, 615)
         texto("Press Space to Pause Game.", FONTE_PEQUENA, BRANCO, 700, 665)
 
         if pausa:

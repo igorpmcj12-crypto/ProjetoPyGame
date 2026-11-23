@@ -1,0 +1,14 @@
+ANIMACOES DO OMNITRIX RUN - V2
+
+As pastas contem PNGs com fundo transparente e tamanho uniforme de 160 x 150 pixels.
+
+caminhar: 6 frames
+correr: 6 frames
+atacar: 4 frames
+pular: 4 frames
+rolar: 6 frames
+morrer: 6 frames
+transformar: 8 frames
+
+No main.py, caminhada e corrida sao usadas durante a movimentacao. Z dispara e toca a animacao de ataque.
+Os outros movimentos estao separados e prontos para as proximas etapas.
