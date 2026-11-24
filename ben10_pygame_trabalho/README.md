@@ -4,7 +4,7 @@
 - Nome Igor Pereira
 - RA: 1139603
 - Nome completo: Camila Bueno
-- RA: PREENCHER
+- RA: 1140231
 
 ## História
 Um jovem portador de um dispositivo alienígena precisa atravessar uma zona perigosa, destruindo inimigos enquanto tenta conseguir a maior pontuação possível. O jogo usa uma temática de transformação alienígena inspirada no estilo de jogos clássicos de heróis, com identidade visual própria.
