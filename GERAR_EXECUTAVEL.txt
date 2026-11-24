@@ -1,4 +1,4 @@
-GERAR EXECUTAVEL - OMNITRIX RUN V7
+GERAR EXECUTAVEL - OMNITRIX RUN V11
 
 O comando solicitado no PDF e:
 python setup.py build

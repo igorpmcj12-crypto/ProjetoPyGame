@@ -1,0 +1,18 @@
+ANIMACOES - OMNITRIX RUN V11
+
+Todos os PNGs ficam nesta pasta bases/imagens/animacoes/ e sao carregados pelo main.py.
+
+Heroi:
+- caminhar: 6 quadros (o primeiro e usado parado; todos aparecem na tela inicial)
+- correr: 6 quadros
+- atacar: 4 quadros (soco)
+- pular: 4 quadros
+- agachar: 4 quadros com fundo transparente
+- rolar: 6 quadros
+- morrer: 6 quadros
+
+Inimigos:
+- Os ratinhos e os morcegos possuem suas sequencias em bases/imagens/inimigos/.
+
+V11: as transformacoes (Chamas e Bola de Canhao) foram removidas do jogo, junto com
+as animacoes de transformacao e os quadros desses aliens.

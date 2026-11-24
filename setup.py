@@ -13,8 +13,8 @@ opcoes = {
 
 setup(
     name="OmnitrixRun",
-    version="7.0",
-    description="Jogo Pygame - Omnitrix Run V7",
+    version="11.0",
+    description="Jogo Pygame - Omnitrix Run V11",
     options=opcoes,
     executables=[Executable("main.py", target_name="OmnitrixRun.exe")],
 )

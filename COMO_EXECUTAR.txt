@@ -1,4 +1,4 @@
-OMNITRIX RUN - V7
+OMNITRIX RUN - V11
 
 1. Extraia o ZIP.
 2. Abra o CMD dentro da pasta que contem main.py e requirements.txt.

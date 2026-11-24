@@ -1,15 +1,15 @@
-# Omnitrix Run - V8
+# Omnitrix Run - V11
 
 ## Desenvolvedores
-- Nome completo: Igor Pereira de Medeiros
-- RA: 1139603
-- Nome completo: Camila Bueno
-- RA: 1140231
+- Nome completo: PREENCHER
+- RA: PREENCHER
+- Nome completo: PREENCHER
+- RA: PREENCHER
 
 > Antes da entrega, preencham os nomes completos e os RAs dos dois integrantes. Esses dados nao foram colocados para evitar inventar informacoes.
 
 ## Historia
-Um jovem heroi entra em uma selva tomada por criaturas perigosas. Com um dispositivo alienigena, ele pode assumir duas formas: Chamas, que dispara bolas de fogo, e Bola de Canhao, que avanca rolando contra os inimigos. Ratinhos correm pela trilha e morcegos mergulham do alto, enquanto um vilao observa a batalha montado em uma criatura anfibia. O objetivo e sobreviver, derrotar os inimigos e conquistar a maior pontuacao.
+Um jovem heroi, portador do Omnitrix, entra em uma selva tomada pelas criaturas de um vilao montado em um sapo gigante. Sem usar transformacoes, ele conta apenas com seus saltos e seus socos. O personagem fica fixo no eixo horizontal e se movimenta verticalmente por saltos com gravidade. Uma plataforma de pedra no meio da cena permite escapar dos ratinhos, mas e ali que os morcegos atacam na altura da cabeca. O jogador pode cair sobre os inimigos para elimina-los.
 
 ## Tecnologias utilizadas
 - Python 3
@@ -27,49 +27,54 @@ Um jovem heroi entra em uma selva tomada por criaturas perigosas. Com um disposi
 Se o comando `py` nao funcionar, use `python` no lugar dele.
 
 ## Controles
-- A/D ou setas esquerda/direita: mover no eixo X.
-- SHIFT: correr.
-- W ou seta para cima: pular.
-- S ou seta para baixo: agachar.
-- G: abrir/fechar o menu do Omnitrix.
-- 1: transformar em Chamas.
-- 2: transformar em Bola de Canhao.
-- 0: voltar ao heroi (com o menu aberto).
-- Z ou botao esquerdo do mouse: atacar.
+- W ou seta para cima: pular; e possivel aterrissar na plataforma.
+- S ou seta para baixo: atravessar a plataforma durante o salto ou descer dela ate o chao.
+- Pouse sobre ratinhos ou morcegos durante a descida para elimina-los e ganhar pontos.
+- Z ou botao esquerdo do mouse: soco.
 - SPACE: pausar/continuar.
 - ESC: fechar o jogo.
 
 ## Funcionalidades
-- Tela inicial tematizada, com campo de nome, botao interativo e ranking Top 5.
+- Tela inicial tematizada (simbolo do Omnitrix animado, heroi em destaque, particulas de energia verde), com campo de nome, botao interativo e ranking Top 5.
 - Tela de boas-vindas com nome do jogador, explicacao da mecanica e um unico botao para iniciar.
 - A tela de boas-vindas mostra os melhores resultados com data e hora.
 - O jogo tem tres vidas, mostradas por tres coracoes.
-- Chamas dispara bolas de fogo e Bola de Canhao ataca rolando.
-- Os ataques possuem intervalo de recarga de 1,5 segundo.
+- O heroi ataca com um soco (Z ou clique).
 - Ratinhos e morcegos surgem durante a partida e ficam mais rapidos e numerosos com o tempo.
-- A personagem pode se mover no eixo X e pular no eixo Y, sem movimento diagonal.
+- Os morcegos voam na altura da cabeca do heroi quando ele esta sobre a plataforma.
+- O personagem permanece na mesma posicao horizontal e se movimenta verticalmente por saltos com aceleracao da gravidade, aterrissando na plataforma ou no chao.
+- Pular sobre ratinhos ou morcegos elimina o inimigo, concede pontos e impulsiona o personagem para um novo salto.
 - Um objeto decorativo se movimenta de forma aleatoria, sem interagir com o jogador.
 - Um circulo amarelo no canto da tela pulsa lentamente.
 - A tecla SPACE pausa o jogo e exibe PAUSE no centro.
-- A mensagem `Press Space to Pause Game.` aparece discretamente durante a partida.
+- A mensagem ESPACO: PAUSAR aparece discretamente durante a partida.
 - O jogo registra nome, pontuacao, data e hora no arquivo `log.dat` (formato HH:MM:SS).
 - A tela de fim de jogo mostra o competidor com maior pontuacao.
 - `pyttsx3` e utilizado na tela de boas-vindas.
 - ESC fecha o jogo completamente.
 
-## Animacoes da V8
-- Chamas: quadros parados e correndo padronizados pela altura visivel, para nao aumentar/diminuir ao trocar de estado.
-- Bola de Canhao: um unico modelo visual pixel-art e animacoes separadas de repouso, caminhada, corrida, pulo, agachamento e ataque. Todos os estados usam o mesmo conjunto-base de sprites.
+## Alteracoes da V11
+- Transformacoes removidas: sem menu do Omnitrix (G), sem Chamas, sem Bola de Canhao e sem animacao de transformacao. Os arquivos desses aliens foram retirados de `bases/`.
+- Nova tela inicial desenhada no codigo, no tema do Omnitrix: simbolo animado, titulo com brilho verde, heroi animado em um pedestal de energia e controles atualizados.
+- Morcegos nascem e voam na altura da cabeca do heroi sobre a plataforma, oscilando poucos pixels (antes eles iam descendo durante o voo).
+- Plataforma encurtada para terminar antes do vilao e redesenhada com blocos de pedra, musgo, flores, cipos, pilares de pedra e simbolos do Omnitrix entalhados.
+
+## Alteracoes da V10
+- O movimento vertical agora usa impulso e gravidade: o heroi realiza saltos com arco natural, sem flutuar ate a plataforma.
+- W/seta para cima inicia o salto; S/seta para baixo permite atravessar a plataforma durante o salto ou descer dela.
+- Aterrissar sobre ratinhos ou morcegos elimina o inimigo, soma pontos e gera um impulso de ricochete.
+- Foram adicionadas animacoes de pulo para o heroi.
+- O botao de inicio foi corrigido para “COMEÇAR PARTIDA”.
 
 ## Audio
-Os arquivos WAV desta versao foram compostos e sintetizados originalmente para o projeto: musica de fundo, transformacao, disparo, soco, impacto, pontuacao, morte, pulo, rolamento e interface. Todos ficam dentro de `bases/sons/`.
+Os arquivos WAV desta versao foram compostos e sintetizados originalmente para o projeto: musica de fundo, soco, impacto, pontuacao, morte, pulo e interface. Todos ficam dentro de `bases/sons/`.
 
 Consulte `bases/sons/FONTES_AUDIO.txt` para as referencias externas pesquisadas e informacoes de licenca.
 
 ## Estrutura principal
 - `main.py`: codigo principal do jogo.
 - `Recursos/trabalho.py`: funcoes auxiliares importadas pelo programa.
-- `bases/imagens/`: capa, cenario, personagens, inimigos, animacoes e efeitos visuais.
+- `bases/imagens/`: cenario, personagem, inimigos, chefe e animacoes.
 - `bases/sons/`: musica e efeitos sonoros.
 - `bases/fontes/`: fonte usada na interface.
 - `bases/icones/`: icone do projeto.
