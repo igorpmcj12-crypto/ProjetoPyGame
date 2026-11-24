@@ -1,10 +1,10 @@
 # Omnitrix Run - V11
 
 ## Desenvolvedores
-- Nome completo: PREENCHER
-- RA: PREENCHER
-- Nome completo: PREENCHER
-- RA: PREENCHER
+- Nome completo: Igor Pereira de Medeiros
+- RA: 1139603
+- Nome completo: Camila Bueno
+- RA: 
 
 > Antes da entrega, preencham os nomes completos e os RAs dos dois integrantes. Esses dados nao foram colocados para evitar inventar informacoes.
 
